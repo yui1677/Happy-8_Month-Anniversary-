@@ -1,0 +1,245 @@
+Create index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Days Together</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+    background:#000;
+    font-family:'Poppins',sans-serif;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ดาวเล็ก */
+
+.star{
+    position:absolute;
+    background:#ffb6e6;
+    border-radius:50%;
+    animation:twinkle 3s infinite;
+}
+
+@Keyframes twinkle{
+    0%,100%{
+        opacity:.2;
+    }
+    50%{
+        opacity:1;
+    }
+}
+
+/* ดาวตก */
+
+.shooting-star{
+    position:absolute;
+    width:180px;
+    height:2px;
+
+    background:linear-gradient(
+        90deg,
+        rgba(255,255,255,0),
+        #ff80d5
+    );
+
+    border-radius:999px;
+
+    filter:drop-shadow(0 0 10px #ff80d5);
+
+    animation:shoot linear infinite;
+}
+
+@Keyframes shoot{
+
+    from{
+        transform:
+        translateX(-200px)
+        translateY(-200px)
+        rotate(25deg);
+    }
+
+    to{
+        transform:
+        translateX(140vw)
+        translateY(90vh)
+        rotate(25deg);
+    }
+}
+
+.container{
+    text-align:center;
+    z-index:5;
+}
+
+.days{
+    font-size:180px;
+    font-weight:900;
+    line-height:1;
+
+    color:white;
+
+    text-shadow:
+    0 0 10px #fff,
+    0 0 20px #ff8ad8,
+    0 0 40px #ff66cc,
+    0 0 80px #ff33bb,
+    0 0 120px #ff1493;
+
+    animation:pulse 3s infinite;
+}
+
+@Keyframes pulse{
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.04);
+    }
+}
+
+.label{
+    margin-top:10px;
+
+    font-size:24px;
+    letter-spacing:10px;
+
+    color:#ffd8f1;
+}
+
+.message{
+    margin-top:30px;
+
+    font-size:18px;
+    letter-spacing:3px;
+
+    color:#ffffffcc;
+}
+
+@media(max-width:768px){
+
+    .days{
+        font-size:120px;
+    }
+
+    .label{
+        font-size:18px;
+        letter-spacing:5px;
+    }
+
+    .message{
+        font-size:14px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="days" id="days">0</div>
+
+    <div class="label">
+        DAYS TOGETHER
+    </div>
+
+    <div class="message">
+        HAPPY 8 MONTH ANNIVERSARY
+    </div>
+
+</div>
+
+<script>
+
+/* วันเริ่มคบ */
+const startDate = new Date("2025-10-08");
+
+function updateDays(){
+
+    const now = new Date();
+
+    const diff = now - startDate;
+
+    const days = Math.floor(
+        diff / (1000*60*60*24)
+    );
+
+    document.getElementById("days").innerText = days;
+}
+
+updateDays();
+
+/* ดาวเล็ก */
+
+for(let i=0;i<120;i++){
+
+    const star = document.createElement("div");
+
+    star.classList.add("star");
+
+    const size = Math.random()*3+1;
+
+    star.style.width=size+"px";
+    star.style.height=size+"px";
+
+    star.style.left=Math.random()*100+"vw";
+    star.style.top=Math.random()*100+"vh";
+
+    star.style.animationDelay=
+    Math.random()*3+"s";
+
+    document.body.appendChild(star);
+}
+
+/* ดาวตก */
+
+for(let i=0;i<8;i++){
+
+    const shooting =
+    document.createElement("div");
+
+    shooting.classList.add(
+        "shooting-star"
+    );
+
+    shooting.style.top=
+    Math.random()*100+"vh";
+
+    shooting.style.left=
+    (-500*Math.random())+"px";
+
+    shooting.style.animationDuration=
+    (5+Math.random()*6)+"s";
+
+    shooting.style.animationDelay=
+    (Math.random()*10)+"s";
+
+    document.body.appendChild(
+        shooting
+    );
+}
+
+</script>
+
+</body>
+</html>
